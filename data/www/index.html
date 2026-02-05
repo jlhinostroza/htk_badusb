@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HTK-BadUSB WiFi Setup</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; max-width: 640px; margin: auto; }
+    label { display:block; margin-top: 1rem; }
+    input[type=text], input[type=password] { width:100%; padding: 0.5rem; }
+    button { margin-top: 1rem; padding: 0.6rem 1rem; }
+    .status { margin-top:1rem; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>HTK-BadUSB — Configurar WiFi</h1>
+  <p>Introduce las credenciales de tu red WiFi y pulsa "Guardar". El dispositivo intentará conectarse en modo STA.</p>
+
+  <form id="wifiForm">
+    <label for="ssid">SSID</label>
+    <input id="ssid" name="ssid" type="text" placeholder="Nombre de la red" required>
+
+    <label for="pass">Password</label>
+    <input id="pass" name="pass" type="password" placeholder="Contraseña" required>
+
+    <button type="submit">Guardar</button>
+  </form>
+
+  <div class="status" id="status"></div>
+
+  <script>
+    const form = document.getElementById('wifiForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const ssid = document.getElementById('ssid').value;
+      const pass = document.getElementById('pass').value;
+
+      status.textContent = 'Enviando...';
+
+      try {
+        const res = await fetch('/wifi/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ssid, pass })
+        });
+        const text = await res.text();
+        if (res.ok) {
+          status.textContent = 'Guardado correctamente. ' + text;
+        } else {
+          status.textContent = 'Error: ' + text;
+        }
+      } catch (err) {
+        status.textContent = 'Error de red: ' + err;
+      }
+    });
+  </script>
+</body>
+</html>

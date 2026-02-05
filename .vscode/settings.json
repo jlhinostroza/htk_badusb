@@ -1,0 +1,8 @@
+{
+    "C_Cpp.default.compilerPath": "C:/Users/jlhin/.platformio/packages/toolchain-xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc.exe",
+
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/.pio/build/esp32s3/compile_commands.json",
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "C_Cpp.errorSquiggles": "Enabled"
+}
+
