@@ -1,25 +1,39 @@
-#include "../core/platform_hal.h"
 #include "logger.h"
+#include <Arduino.h>
+#include <stdarg.h>
 
-void Log_Init()
-{
+static void logPrint(const char* level, const char* fmt, va_list args) {
+    char buffer[128];
+
+    vsnprintf(buffer, sizeof(buffer), fmt, args);
+
+    Serial.print("[");
+    Serial.print(level);
+    Serial.print("] ");
+    Serial.println(buffer);
+}
+
+void Log_Init() {
     Serial.begin(115200);
 }
 
-void Log_Info(const char *msg)
-{
-    Serial.print("[INFO] ");
-    Serial.println(msg);
+void Log_Info(const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    logPrint("INFO", fmt, args);
+    va_end(args);
 }
 
-void Log_Warn(const char *msg)
-{
-    Serial.print("[WARN] ");
-    Serial.println(msg);
+void Log_Warn(const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    logPrint("WARN", fmt, args);
+    va_end(args);
 }
 
-void Log_Error(const char *msg)
-{
-    Serial.print("[ERROR] ");
-    Serial.println(msg);
+void Log_Error(const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    logPrint("ERR", fmt, args);
+    va_end(args);
 }
