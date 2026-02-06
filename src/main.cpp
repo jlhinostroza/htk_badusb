@@ -1,11 +1,12 @@
 #include "core/system_init.h"
 #include "app/app_controller.h"
+#include "core/hardware_init.h"
 
 AppController app;
 
 /*#include "core/platform_hal.h"
 
-#include "core/hardware_init.h"
+
 #include "core/system_init.h"
 #include "core/mode_manager.h"
 
@@ -19,30 +20,13 @@ AppController app;
 */
 void setup()
 {
-
     System_Init();
     app.begin();
-/*
-    Log_Init();
-
-    while (!Serial);
-    Log_Info("Booting firmware...");
-
-    // Inicializar hardware base
-    Hardware_Init();
-    //System_Init();
-
-    //ModeManager_SetMode(MODE_NORMAL);
-
-    ModeManager modeManager;
-    modeManager.ModeInit();
-    
-    Log_Info("System ready");*/
 }
 
 void loop()
 {
-
+    Hardware_Update();
     app.update();
 
 /*    StorageService_Update();

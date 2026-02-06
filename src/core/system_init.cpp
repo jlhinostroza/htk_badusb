@@ -1,16 +1,21 @@
 #include "../core/platform_hal.h"
+#include "../core/hardware_init.h"
 
-#include "../config/config.h"
-
-#include "../core/wifi_manager.h"
-#include "../services/wifi_config_service.h"
 #include "../utils/logger.h"
 
-#include <WiFi.h>
-
-WifiManager wifiManager; 
-
 void System_Init() {
+
+    Log_Init();
+    delay(200);
+    
+    Log_Info("System booting...");
+
+    Hardware_Init();
+
+    statusLed.setColor(0, 0, 40); //Color: Blue
+   
+    Log_Info("Hardware init complete");
+    /*
     WiFi.mode(WIFI_AP_STA);
 
     wifiManager.APInit(AP_SSID, AP_PASSWORD);
@@ -23,5 +28,5 @@ void System_Init() {
     } else {
         Log_Info("No stored WiFi credentials found; STA not started");
     }
-
+*/
 }
