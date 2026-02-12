@@ -6,6 +6,7 @@
 
 #include "../drivers/sd_driver.h"
 #include "../utils/logger.h"
+#include "../config/config.h"
 
 static USBMSC msc;
 
@@ -51,15 +52,15 @@ bool USBMSCDriver::begin() {
     if (active) return true;
 
     if (!sd.isMounted()) {
-        Log_Error("MSC: SD no montada");
+        Log_Error("MSC: SD not mounted");
         return false;
     }
 
-    Log_Info("MSC: iniciando");
+    Log_Info("MSC: initialized");
 
-    msc.vendorID("HYTEK");
-    msc.productID("MSC_SD");
-    msc.productRevision("1.0");
+    msc.vendorID(DEVICE_MANUFACTURER);
+    msc.productID(MSC_DEVICE_NAME);
+    msc.productRevision(FW_VERSION);
 
     msc.onRead(msc_onRead);
     msc.onWrite(msc_onWrite);
@@ -71,6 +72,6 @@ bool USBMSCDriver::begin() {
     USB.begin();
 
     active = true;
-    Log_Info("MSC activo");
+    Log_Info("MSC active");
     return true;
 }
