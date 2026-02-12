@@ -40,7 +40,3 @@ bool ButtonDriver::wasPressed() {
     previousState = currentState;
     return event;
 }
-
-bool ButtonDriver::readRaw() {
-    return digitalRead(pin);
-}
