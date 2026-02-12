@@ -1,4 +1,4 @@
-#include "../core/platform_hal.h"
+/*#include "../core/platform_hal.h"
 
 #include  "../drivers/button_driver.h"
 #include "../services/storage_service.h"
@@ -24,3 +24,4 @@ void ModeManager::ModeInit() {
         System_Init(); // Inicializa el sistema en modo normal
     }
 }
+*/

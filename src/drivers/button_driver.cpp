@@ -1,17 +1,6 @@
 #include "../core/platform_hal.h"
 #include "button_driver.h"
 
-//#include "../config/pins.h"
-
-/*
-void modeButtonInit(int modeButtonPin) {
-    pinMode(modeButtonPin, INPUT_PULLUP);
-}
-
-int modeButtonRead() {
-    return digitalRead(PIN_MODE_BUTTON);
-}*/
-
 ButtonDriver::ButtonDriver(uint8_t gpio)
     : pin(gpio),
       lastStableState(HIGH),
@@ -50,4 +39,8 @@ bool ButtonDriver::wasPressed() {
 
     previousState = currentState;
     return event;
+}
+
+bool ButtonDriver::readRaw() {
+    return digitalRead(pin);
 }

@@ -1,13 +1,4 @@
 #pragma once
-
-
-/*bool SD_Driver_Init();
-void SD_Driver_Deinit();
-
-bool SD_Driver_IsCardInserted();
-bool SD_Driver_IsMounted();
-*/
-
 class SDDriver {
 public:
     SDDriver(uint8_t sckPin, uint8_t misoPin, uint8_t mosiPin,

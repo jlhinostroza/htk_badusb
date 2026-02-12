@@ -1,4 +1,4 @@
-#include "wifi_config_service.h"
+/*#include "wifi_config_service.h"
 #include <Preferences.h>
 #include "../utils/logger.h"
 
@@ -33,3 +33,4 @@ void WifiConfig_Clear() {
     prefs.end();
     Log_Info("WiFi credentials cleared from NVS");
 } 
+*/

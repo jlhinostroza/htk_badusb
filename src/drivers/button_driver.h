@@ -21,4 +21,5 @@ public:
 
     bool isPressed();        // nivel lógico actual (con debounce)
     bool wasPressed();       // flanco de bajada (evento)
+    bool readRaw();         // lectura directa sin debounce
 };

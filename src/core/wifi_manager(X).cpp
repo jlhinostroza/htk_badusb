@@ -1,4 +1,4 @@
-#include "../core/platform_hal.h"
+/*#include "../core/platform_hal.h"
 
 #include "wifi_manager.h"
 #include <WiFi.h>
@@ -51,4 +51,4 @@ IPAddress WifiManager::getSTAIP() const {
 
 bool WifiManager::isConnected() const {
     return staConnected;
-}
+}*/

@@ -11,8 +11,9 @@ bool WifiConfig_Exists();
 void WifiConfig_Clear();
 */
 
-class WebConfigService {
+/*class WebConfigService {
 public:
     void begin(WebServerService& server);
     void update();
 };
+*/

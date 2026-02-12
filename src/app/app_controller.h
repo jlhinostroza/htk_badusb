@@ -19,6 +19,8 @@ private:
     AppState currentState;
     unsigned long stateStartTime;
 
+    bool waitRelease = false;
+
     // === Métodos de estados ===
     void enterState(AppState newState);
 

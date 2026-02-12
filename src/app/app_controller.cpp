@@ -1,6 +1,8 @@
 #include "app_controller.h"
 #include "../core/hardware_init.h"
 #include "../utils/logger.h"
+#include "app_controller.h"
+#include "modes/mode_msc.h"
 
 void AppController::begin() {
     enterState(AppState::BOOT);
@@ -41,12 +43,22 @@ void AppController::enterState(AppState newState) {
     currentState = newState;
     stateStartTime = millis();
 
+    if (newState == AppState::MODE_SELECT_WINDOW) {
+        waitRelease = true;   // ← aquí sí significa “estoy esperando que suelte”
+    }
+
     Log_Info("State changed → %d", (int)newState);
 }
 
+
 void AppController::handleBoot() {
 
-    statusLed.setColor(50, 0, 0); // rojo
+    statusLed.setColor(50, 0, 0);
+
+    // Esperar un ciclo para que el botón se estabilice
+    if (millis() - stateStartTime < 50) {
+        return;
+    }
 
     if (modeButton.isPressed()) {
         enterState(AppState::MODE_SELECT_WINDOW);
@@ -57,19 +69,25 @@ void AppController::handleBoot() {
 
 void AppController::handleModeSelectWindow() {
 
-    statusLed.blink(200); // parpadeo rápido
+    statusLed.blink(200);
 
-    // Si presiona botón → BLE futuro
+    if (waitRelease) {
+        if (!modeButton.isPressed()) {
+            waitRelease = false;  // ya se soltó
+        }
+        return;  // NO procesar nada más
+    }
+
     if (modeButton.wasPressed()) {
         enterState(AppState::BLE_MODE);
         return;
     }
 
-    // Pasaron 5s → BadUSB
     if (millis() - stateStartTime > MODE_SELECT_TIMEOUT) {
         enterState(AppState::BADUSB_IDLE);
     }
 }
+
 
 void AppController::handleBadUsbIdle() {
 
@@ -99,10 +117,15 @@ void AppController::handleBadUsbActive() {
 
 void AppController::handleMSCMode() {
 
-    statusLed.blink(1000); // lento = pendrive
+    static ModeMSC modeMSC;
+    static bool started = false;
 
-    // Aquí luego:
-    // MSCService.start();
+    if (!started) {
+        modeMSC.begin();
+        started = true;
+    }
+
+    modeMSC.loop();
 }
 
 void AppController::handleBLEMode() {

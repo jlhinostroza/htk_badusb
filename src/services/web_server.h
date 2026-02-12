@@ -16,6 +16,6 @@ public:
     void start();
     void stop();
     void update();
-    WebServer& getServer();
+    //WebServer& getServer();
 };
 

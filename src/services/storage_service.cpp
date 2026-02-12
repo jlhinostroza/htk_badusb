@@ -1,4 +1,4 @@
-#include "storage_service.h"
+/*#include "storage_service.h"
 
 #include "../drivers/sd_driver.h"
 #include "../utils/logger.h"
@@ -52,4 +52,4 @@ void StorageService_Update()
 bool StorageService_Available()
 {
     return storageReady;
-}
+}*/

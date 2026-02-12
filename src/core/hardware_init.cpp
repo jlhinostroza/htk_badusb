@@ -6,9 +6,14 @@
 #include "../drivers/led_driver.h"
 #include "../drivers/button_driver.h"
 #include "../drivers/sd_driver.h"
+#include "../drivers/usb_msc_driver.h"
+
+#include "../utils/logger.h"
 
 LedDriver statusLed(PIN_LED_STATUS);
 ButtonDriver modeButton(PIN_MODE_BUTTON);
+USBMSCDriver usbMSC(sdCard);
+
 SDDriver sdCard(
     PIN_SD_SCK,
     PIN_SD_MISO,
